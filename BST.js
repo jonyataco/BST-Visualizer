@@ -4,7 +4,7 @@ import { BSTNode } from './BSTNode.js';
  */
 class BST {
     static givenTree = [8,3,10,1,6,14,4,7,13];
-	static radius = 20;
+	static radius = 25;
 
     constructor() {
         this.root = null;
@@ -49,8 +49,8 @@ class BST {
         }
     }
 
-    insertGivenTree() {
-        for (let data of BST.givenTree) {
+	insertGivenTree(array = BST.givenTree) {
+        for (let data of array) {
             this.insert(data);
         }
     }
@@ -62,7 +62,7 @@ class BST {
      * @param {Number} key - The data to search for.
      */
     search(node = this.root, key) {
-        if (key === node.key) {
+        if (key === node.key || node === null) {
             return node;
         }
         else if (key > node.key) {
@@ -96,9 +96,17 @@ class BST {
 							frontQueue.x - 4,
 				 			frontQueue.y + 4);
 			if (frontQueue.left !== null) {
+				ctx.beginPath();
+				ctx.moveTo(frontQueue.x, frontQueue.y + BST.radius);
+				ctx.lineTo(frontQueue.left.x, frontQueue.left.y - BST.radius);
+				ctx.stroke();
 				fifoQueue.push(frontQueue.left);
 			}
 			if (frontQueue.right !== null) {
+				ctx.beginPath();
+				ctx.moveTo(frontQueue.x, frontQueue.y + BST.radius);
+				ctx.lineTo(frontQueue.right.x, frontQueue.right.y - BST.radius);
+				ctx.stroke();
 				fifoQueue.push(frontQueue.right);
 			}
 
