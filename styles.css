@@ -1,0 +1,40 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	overflow: hidden;
+}
+
+h1 {
+	font-size: 2vw;
+	font-family: Arial;
+}
+
+#header {
+	display: flex;
+	border-style: solid;
+	border-width: 2px;
+	flex-direction: column;
+}
+
+.header-message {
+	display: flex;
+	justify-content: center;
+}
+
+.header-buttons {
+	display: flex;
+	justify-content: center;
+}
+
+.controls {
+	display: block;
+	font-family: Arial;
+	font-size: 16px;
+	width: 100px;
+	height: 35px;
+	margin-right: 50px;
+	margin-bottom: 10px;
+}
