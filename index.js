@@ -44,5 +44,4 @@ document.getElementById("problem3").addEventListener("click", function (){
 });
 
 tree.drawTree(ctx);
-
 window.onresize = resizeCanvas;

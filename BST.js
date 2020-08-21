@@ -3,54 +3,54 @@ import { BSTNode } from './BSTNode.js';
  *  Class for the Binary Search Tree 
  */
 class BST {
-    static givenTree = [8,3,10,1,6,14,4,7,13];
+	static givenTree = [8,3,10,1,6,14,4,7,13];
 	static radius = 25;
 
-    constructor() {
-        this.root = null;
-    }
+	constructor() {
+		this.root = null;
+	}
 
-    /**
-     * Inserts a given number into the BST.
-     * @param {number} key - Data to be inserted in the BST
+	/**
+	 * Inserts a given number into the BST.
+	 * @param {number} key - Data to be inserted in the BST
 	 * @param {Object} canvas - The current canvas
-     */
-    insert(key, canvas) {
-        if (this.root === null) {
-            this.root = new BSTNode(key, canvas.width / 4, 40);
-        }
-        else {
-            this.insertNode(this.root, key);
-        }
-    }
-    
-    /**
-     * Helper function for insert in order to call recursively 
-     * @param {Object} node - Node to call insertNode from
-     * @param {number} key - Data to be inserted
+	 */
+	insert(key, canvas) {
+		if (this.root === null) {
+			this.root = new BSTNode(key, canvas.width / 4, 40);
+		}
+		else {
+			this.insertNode(this.root, key);
+		}
+	}
+
+	/**
+	 * Helper function for insert in order to call recursively 
+	 * @param {Object} node - Node to call insertNode from
+	 * @param {number} key - Data to be inserted
 	 * @param {number} modifier - Modifier that is used to change the visual
 	 * 							  representation of BST
-     */
-    insertNode(node, key, modifier = 0) {
-        if (key < node.key) {
-            if (node.left === null) {
-                node.left = new BSTNode(key, node.x - 100 + modifier, node.y + 100);
-            }
-            else {
+	 */
+	insertNode(node, key, modifier = 0) {
+		if (key < node.key) {
+			if (node.left === null) {
+				node.left = new BSTNode(key, node.x - 100 + modifier, node.y + 100);
+			}
+			else {
 				modifier += 20;
-                this.insertNode(node.left, key, modifier);
-            }
-        }
-        else {
-            if (node.right === null) {
-                node.right = new BSTNode(key, node.x + 100 - modifier, node.y + 100);
-            }
-            else {
+				this.insertNode(node.left, key, modifier);
+			}
+		}
+		else {
+			if (node.right === null) {
+				node.right = new BSTNode(key, node.x + 100 - modifier, node.y + 100);
+			}
+			else {
 				modifier += 20;
-                this.insertNode(node.right, key, modifier);
-            }
-        }
-    }
+				this.insertNode(node.right, key, modifier);
+			}
+		}
+	}
 
 
 	/**
@@ -60,22 +60,22 @@ class BST {
 	 * @param {Object} canvas - The current canvas
 	 */
 	insertGivenTree(array = BST.givenTree, canvas) {
-        for (let data of array) {
-            this.insert(data, canvas);
-        }
-    }
+		for (let data of array) {
+			this.insert(data, canvas);
+		}
+	}
 
-    /**
-     * Searches for a given value recursively 
-     * @param {Object} key - The node where to start searching from. 
+	/**
+	 * Searches for a given value recursively 
+	 * @param {Object} key - The node where to start searching from. 
 	 * 						  By default, this will be the root of BST.
-     * @param {Number} node - The data to search for.
-     */
-    search(key, ctx, canvas, node = this.root) {
+	 * @param {Number} node - The data to search for.
+	 */
+	search(key, ctx, canvas, node = this.root) {
 		// This case only happens if the tree is empty
 		if (node === null)
 			return null;
-	
+
 		// Recursive search to find the key in the tree. Once it does it
 		// returns the node
 		if (key < node.key) {
@@ -96,7 +96,7 @@ class BST {
 			this.drawTreeWithCurrentNode(ctx, node);
 			return node;
 		}
-    }
+	}
 
 	searchKey(key, node = this.root) {
 		if (node === null)
@@ -113,16 +113,16 @@ class BST {
 		}
 	}
 
-    /**
-     * Draws the tree on the given canvas context
-     * @param {Object} ctx - Context from the canvas on the page
+	/**
+	 * Draws the tree on the given canvas context
+	 * @param {Object} ctx - Context from the canvas on the page
 	 * @param {Number} node - Node to start drawing from
-     */ 
-    drawTree(ctx, node = this.root) {
+	 */ 
+	drawTree(ctx, node = this.root) {
 		if (node === null) {
 			return;
 		}
-		
+
 		let fifoQueue = [];
 		fifoQueue.push(node);
 
@@ -133,8 +133,8 @@ class BST {
 			ctx.stroke();
 			ctx.closePath();
 			ctx.fillText(`${frontQueue.key}`, 
-							frontQueue.x - 4,
-				 			frontQueue.y + 4);
+										frontQueue.x - 4,
+										frontQueue.y + 4);
 			if (frontQueue.left !== null) {
 				ctx.beginPath();
 				ctx.moveTo(frontQueue.x, frontQueue.y + BST.radius);
@@ -152,7 +152,7 @@ class BST {
 
 			let popped = fifoQueue.shift();
 		}
-    }
+	}
 
 	/**
 	 * Draws the tree with the currently selected node. Used for search
@@ -161,7 +161,7 @@ class BST {
 		if (node === null) {
 			return;
 		}
-		
+
 		let fifoQueue = [];
 		fifoQueue.push(node);
 
@@ -176,8 +176,8 @@ class BST {
 				ctx.closePath();
 				ctx.fillStyle = 'white';
 				ctx.strokeText(`${frontQueue.key}`, 
-								frontQueue.x - 4,
-								frontQueue.y + 4);
+												frontQueue.x - 4,
+												frontQueue.y + 4);
 			}
 			else {
 				ctx.beginPath();
@@ -186,8 +186,8 @@ class BST {
 				ctx.closePath();
 				ctx.fillStyle = 'black';
 				ctx.fillText(`${frontQueue.key}`, 
-								frontQueue.x - 4,
-								frontQueue.y + 4);
+											frontQueue.x - 4,
+											frontQueue.y + 4);
 			}
 
 			if (frontQueue.left !== null) {
@@ -209,12 +209,12 @@ class BST {
 		}
 	}
 
-    /**
-     * Prints the given tree in level order using a FIFO queue
-     * @param {Object} node - The node to start print from.
-     *                        By default it is the root of the root.
-     */
-    printLevelOrder(node = this.root) {
+	/**
+	 * Prints the given tree in level order using a FIFO queue
+	 * @param {Object} node - The node to start print from.
+	 *                        By default it is the root of the root.
+	 */
+	printLevelOrder(node = this.root) {
 		if (node === null) {
 			return;
 		}
@@ -236,31 +236,31 @@ class BST {
 
 			let popped = fifoQueue.shift();
 		}
-    }
+	}
 
 
-    /**
-     * Returns the height of the given tree
-     * @param {Object} node - The node to start calculating the height from.
-     *                        By default it is the root of the tree.
-     * @return {number} - Returns the height of the tree
-     */
-     height(node = this.root) {
-        if (node === null) {
-            return 0;
-        }
-        else {
-            let lHeight = this.height(node.left);
-            let rHeight = this.height(node.right);
+	/**
+	 * Returns the height of the given tree
+	 * @param {Object} node - The node to start calculating the height from.
+	 *                        By default it is the root of the tree.
+	 * @return {number} - Returns the height of the tree
+	 */
+	height(node = this.root) {
+		if (node === null) {
+			return 0;
+		}
+		else {
+			let lHeight = this.height(node.left);
+			let rHeight = this.height(node.right);
 
-            if (lHeight > rHeight) {
-                return (lHeight + 1);
-            }
-            else {
-                return (rHeight + 1);
-            }
-        }
-     }
+			if (lHeight > rHeight) {
+				return (lHeight + 1);
+			}
+			else {
+				return (rHeight + 1);
+			}
+		}
+	}
 
 	/**
 	 * Delete a given key
@@ -284,7 +284,7 @@ class BST {
 		}
 
 		// Now that we have found the node
-		
+
 		// If the node has no children
 		if (node.left === null && node.right === null) {
 			node = null;
